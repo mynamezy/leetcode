@@ -1,0 +1,16 @@
+class Solution {
+public:
+    bool canConstruct(string ransomNote, string magazine) {
+         for(decltype(ransomNote.size()) index =0; index!=ransomNote.size(); ++index){
+           for(decltype(magazine.size()) i =0; i!=magazine.size(); ++i){
+              if(magazine[i]==ransomNote[index]){ 
+                 break;
+                }
+              if(i==(magazine.size()-1)) {
+                  return false;   
+             }
+           }
+         }
+         return true;
+    }
+};
