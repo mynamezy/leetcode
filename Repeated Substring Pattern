@@ -1,0 +1,15 @@
+class Solution {
+public:
+    bool repeatedSubstringPattern(string str) {
+        for(decltype(str.size()) index=1; index!=str.size(); index++){
+              int j=0;
+              int k=index;
+              while(str[k]==str[j]){
+                  k++,j++;
+                  if(j==index)
+                    return true;
+                  }
+    }
+    return false;
+  }
+};
