@@ -1,0 +1,12 @@
+class Solution {
+public:
+    int lengthOfLastWord(string s) {
+    int count=0;
+    for(decltype(s.size()) index=(s.size()-1);index>=0;index--){
+         if(!count&&isspace(s[index])) continue;
+         if(!isspace(s[index])) count++;
+         if(isspace(s[index])||(index==0)) break;
+    }
+    return count;
+    }
+};
