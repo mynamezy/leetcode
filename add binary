@@ -1,0 +1,14 @@
+class Solution {
+public:
+    string addBinary(string a, string b) {
+        int count=0,j=a.size()-1,k=b.size()-1;
+        string s="";
+        while(j>=0||k>=0||count==1){
+            count+= j>=0 ? a[j--]-'0':0;
+            count+= k>=0 ? b[k--]-'0':0;
+            s=char(count%2+'0')+s;
+            count/2;
+        }
+        return s;
+    }
+};
