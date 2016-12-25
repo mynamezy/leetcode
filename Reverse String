@@ -1,0 +1,12 @@
+class Solution {
+public:
+    string reverseString(string s) {
+        string s1;
+        for(decltype(s.size()) index=0; index!=s.size();++index){
+                  int i=index;
+                  int j=s.size()-1-index;
+                  s1[i]=s[j];
+        }
+        return s1;
+     }
+};
