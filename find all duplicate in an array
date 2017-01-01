@@ -1,0 +1,34 @@
+// class Solution {
+// public:
+//     vector<int> findDuplicates(vector<int>& nums) {
+//         map<int,int> num;
+//         for(auto t:nums){
+//             ++num[t];
+//         }
+//         vector<int> temp;
+//         for(const auto &w:num){
+//             if(w.second>1) temp.push_back(w.first);
+//         }
+//         return temp;
+//     }
+// };
+class Solution {
+public:
+vector<int> findDuplicates(vector<int>& nums) {
+    vector<int> res;
+    if(nums.empty()) return res;
+    
+    for(int i = 0; i < nums.size(); ++i){
+        while(nums[nums[i] - 1] != nums[i]){
+            swap(nums[nums[i] - 1], nums[i]);
+        }
+    }
+    
+    for(int i = 0; i < nums.size(); ++i){
+        if(nums[i] != i + 1){
+            res.push_back(nums[i]);
+        }
+    }
+    return res;
+    }
+};
