@@ -1,0 +1,11 @@
+class Solution {
+public:
+    int longestPalindrome(string s) {
+    int count=0;
+    vector<int> temp(128,0);
+    if(s.size()<=1) return s.size();
+    for(auto m:s) temp[m]++;
+    for(auto t:temp) count+= (t%2) ?t-1 :t;
+    return (count<s.size()) ?count+1 :count; ;   
+    }
+};
