@@ -1,0 +1,28 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    vector<vector<int>> levelOrderBottom(TreeNode* root) {
+        int d = maxdepth(root);
+        vector<vector<int>> res(d,vector<int>{});
+        levelorder(res,root,d-1);
+        return res;
+    }
+    void levelorder(vector<vector<int>> &v, TreeNode* t,int level){
+         if(!t) return;
+         v[level].push_back(t->val);
+         levelorder(v, t->left,level-1);
+         levelorder(v,t->right,level-1);         
+    }
+    
+     int maxdepth(TreeNode* temp){
+         return temp==NULL ?0 :max(maxdepth(temp->left),maxdepth(temp->right))+1;
+     }
+};
