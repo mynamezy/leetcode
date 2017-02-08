@@ -1,0 +1,19 @@
+class Solution {
+public:
+    vector<vector<int>> combine(int n, int k) {
+        vector<vector<int>> res;
+        vector<int> temp;
+        combination(res,temp,n,k);
+        return res;
+    }
+    void combination(vector<vector<int>> &res, vector<int> temp,int n,int k){
+         if(temp.size()==k) {res.push_back(temp); return;}
+         if(temp.size()<k){
+             for(int i=temp.empty() ?1 :temp.back()+1;i<=n; ++i){
+                 temp.push_back(i);
+                 combination(res,temp,n,k);
+                 temp.pop_back();
+             }
+         }
+    }
+};
