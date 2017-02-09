@@ -1,0 +1,19 @@
+class Solution {
+public:
+    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
+        sort(candidates.begin(),candidates.end());
+        vector<vector<int>> res;
+        vector<int> temp;
+        combinationSumII(res,temp,candidates,target,0);
+        return res;
+    }
+    void combinationSumII(vector<vector<int>> &res,vector<int> temp, vector<int> candidates,int target,int begin){
+         if(target==0) {res.push_back(temp);return;}
+         for(int i=begin;i<candidates.size();++i){
+             if((target-candidates[i])<0) break;
+             temp.push_back(candidates[i]);
+             combinationSumII(res,temp,candidates,target-candidates[i],i);
+             temp.pop_back();
+         }
+    }
+};
