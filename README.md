@@ -1,2 +1,1 @@
-# leetcode
-for leetcode
+This is for leetcode record.
