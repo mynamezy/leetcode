@@ -7,7 +7,7 @@ public:
                 init++;
                 if(i==nums.size()-1&&init>max) max=init;
             }
-            if(!(nums[i]&1)){
+            else {
                 if(init>max) max=init;
                 init=0;
                 }
