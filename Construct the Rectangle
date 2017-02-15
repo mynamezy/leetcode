@@ -1,0 +1,14 @@
+class Solution {
+public:
+    vector<int> constructRectangle(int area) {
+        int temp1=0;
+        double temp2=0;
+        vector<int> res;
+        temp1=sqrt(area);
+        for(auto i=temp1;i>0;--i){
+            temp2=double(area)/i;
+            if(temp2==int(temp2)) {res.push_back(int(temp2)); res.push_back(i);break;} 
+        }
+        return res;
+    }
+};
