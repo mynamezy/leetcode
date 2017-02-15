@@ -1,0 +1,21 @@
+class Solution {
+public:
+    vector<string> findRelativeRanks(vector<int>& nums) {
+        vector<int> temp=nums;
+        vector<string> res;
+        sort(temp.begin(),temp.end());
+        map<int,string> count;
+        int l=temp.size();
+        for(auto i=0;i<l-3;++i){
+            count[temp[i]]=to_string(l-i);
+        } 
+        count[temp[l-3]]="Bronze Medal";
+        count[temp[l-2]]="Silver Medal";
+        count[temp[l-1]]="Gold Medal";
+        
+        for(auto w:nums){
+            res.push_back(count[w]);
+        }
+        return res;
+    }
+};
