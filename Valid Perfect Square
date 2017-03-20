@@ -1,0 +1,16 @@
+class Solution {
+public:
+    bool isPerfectSquare(int num) {
+         if(num==1) return true;
+         long lo=1,hi=num/2,mi=0;
+         long nums=(long)num;
+         while(lo<hi){
+             if(hi*hi==nums) return true;
+             mi=(hi-lo)/2+lo;
+             if(mi*mi>nums) hi=mi;
+             else if(mi*mi<nums) lo=mi+1;
+             else return true;
+        }
+        return false;
+    }
+};
