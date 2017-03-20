@@ -1,0 +1,22 @@
+class Solution {
+public:
+      int search(vector<int>& nums, int target) {
+          if(nums.size()==0) return -1;
+          int lo,hi,povit=nums.size();
+          for(auto i=1;i!=nums.size();i++){
+              if(nums[i]<nums[i-1]) {povit=i;}
+            }
+          if(target>=nums[0]) {lo=0;hi=povit-1;}
+          else {lo=povit;hi=nums.size()-1;}
+          
+          if(lo==hi&&nums[lo]==target) return lo;
+          while(lo<hi){
+              if(target==nums[hi]) return hi;
+              int mi=(lo+hi)>>1;
+              if(target<nums[mi]) hi=mi;
+              else if(target>nums[mi]) lo=mi+1;
+              else return mi;
+          }
+          return -1;
+    }
+};
