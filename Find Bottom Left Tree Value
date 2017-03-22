@@ -1,0 +1,27 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    void find(TreeNode* root,int &res,int& maxlevel,int level){
+         if(root==NULL) return;
+         find(root->left,res,maxlevel,level+1);
+         find(root->right,res,maxlevel,level+1);
+         if(level>maxlevel){
+             maxlevel=level;
+             res=root->val;
+         }
+    }     
+    int findBottomLeftValue(TreeNode* root) {
+        int res=root->val;
+        int maxlevel=0;                //maxlevel is global variable
+        find(root,res,maxlevel,0);
+        return res;   
+    }
+};
