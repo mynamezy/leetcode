@@ -1,0 +1,15 @@
+class Solution {
+public:
+    bool searchMatrix(vector<vector<int>>& matrix, int target) {
+        if(matrix.empty()) return false;
+        int n=matrix.size()-1,m=matrix[0].size()-1;
+        int i=0,j=m;
+        while(i<=n&&j>=0){
+            if(target<matrix[i][j]) j--;
+            else if(target>matrix[i][j]) i++;
+            else return true;
+        }
+        return false;
+        
+    }
+};
