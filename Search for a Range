@@ -1,0 +1,17 @@
+class Solution {
+public:
+    vector<int> searchRange(vector<int>& nums, int target) {
+        int low=0,high=nums.size()-1;
+        int index1=find(nums,low,high,target);
+        int index2=find(nums,index1,high,target+1)-1;
+        return (index1<=high&&index1<=index2) ?vector<int>{index1,index2} :vector<int>{-1,-1};
+    }
+    int find(vector<int> nums, int low,int high,int target){
+        while(low<=high){    
+            int mid=low+(high-low)/2;
+            if(nums[mid]<target) low=mid+1;
+            else high=mid-1;
+        }
+        return low;
+    }
+};
