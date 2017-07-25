@@ -1,0 +1,17 @@
+class Solution {
+public:
+    int findMinDifference(vector<string>& timePoints) {
+        vector<int> times;
+        int mini=INT_MAX;
+        for(auto c:timePoints) {times.push_back(counttime(c));}
+        sort(times.begin(),times.end());
+        for(int i=0;i!=times.size()-1;i++){
+            mini=min(mini,times[i+1]-times[i]);
+        }
+       return min(mini,(60*24)-times.back()+times[0]);
+    }
+    
+    int counttime(string time){
+        return ((time[0]-'0')*10+(time[1]-'0'))*60+(time[3]-'0')*10+(time[4]-'0');
+    }
+};
