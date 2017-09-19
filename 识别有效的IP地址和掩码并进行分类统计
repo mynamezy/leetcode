@@ -1,0 +1,126 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include <list>
+using namespace std;
+ 
+// 初步判断输入的点十分进制表示法是否正确
+bool isValid(const string& str, vector<int> & data)
+{
+    for(int i=0; i<str.size(); ++i)
+    {
+        int j = i;
+        for(; j<=str.size(); ++j)
+            if(str[j] == '.' || j == str.size())
+            {
+                string number(str.begin()+i, str.begin()+j);
+                if(number.empty())
+                    return false;
+                int num = atoi(number.c_str());
+                data.push_back(num);
+                break;
+            }
+        i = j;
+    }
+ 
+    if(data.size() != 4)
+        return false;
+ 
+    for(int i=0; i<data.size(); ++i)
+        if(data[i]<0 || data[i]>255)
+            return false;
+ 
+    return true;
+}
+ 
+// 判断IP地址是否正确
+bool ipValidHandle(const string& ip, vector<int> & data)
+{
+    return isValid(ip, data); }
+ 
+// 将整形转化为二进制表示，只取低8位 128 --> 10000000
+void dec2binary(int num, list<char> & mask_binary)
+{
+    for(int i=0; i<8; ++i)
+    {
+        mask_binary.push_front((num & 1)+'0');
+        num = num>>1;
+    }
+}
+ 
+// 判断子网掩码是否正确
+bool maskValidHandle(const string& mask)
+{
+    vector<int> res;
+    list<char> mask_binary;
+    if(!isValid(mask, res))
+        return false;
+     
+    // 将子网掩码转化为二进制的字符串表示
+    // 255.255.255.0 --> 1111111111111111111111110000000
+    for(int i=res.size()-1; i>=0; --i)
+        dec2binary(res[i], mask_binary);
+     
+    bool find1 = false, find0 = false;
+    for(list<char>::iterator it=mask_binary.begin(); it!=mask_binary.end(); ++it)
+        if(!find1 && *it == '1')
+            find1 = true;
+        else if(!find0 && *it== '0')
+            find0 = true;
+        else if(find0 && *it== '1')
+            return false;
+ 
+    if(find0 && find1)
+        return true;
+    return false;
+}
+ 
+int main()
+{
+    string line;
+    int ip_A = 0, ip_B = 0, ip_C = 0, ip_D = 0;
+    int ip_E = 0, ip_Err = 0, ip_private = 0;
+ 
+    while(getline(cin, line))
+    {
+        for(int i=0; i<line.size(); ++i)
+            if(line[i] == '~')
+            {
+                string ip(line.begin(), line.begin()+i);
+                string mask(line.begin()+i+1, line.end());
+                vector<int> data;
+                if(ipValidHandle(ip, data) && maskValidHandle(mask))
+                {
+                    if(data[0] >=1 && data[0] <= 126)
+                    {
+                        if(data[0] == 10)
+                            ip_private++;
+                        ip_A++;
+                    }
+                    else if(data[0] >=128 && data[0]<=191 )
+                    {
+                        if(data[0] == 172 && (data[1]>=16 && data[1]<=31))
+                            ip_private++;
+                        ip_B++;
+                    }
+                    else if(data[0] >=192 && data[0] <= 223)
+                    {
+                        if(data[0] == 192 && data[1]==168)
+                            ip_private++;
+                        ip_C++;
+                    }
+                    else if(data[0] >=224 && data[0] <= 239)
+                        ip_D++;
+                    else if(data[0] >=240 && data[0] <= 255)
+                        ip_E++;
+                }
+                else
+                    ++ip_Err;
+                break;
+            }
+    }
+ 
+    cout<<ip_A<<" "<<ip_B<<" "<<ip_C<<" "<<ip_D<<" "<<ip_E<<" "<<ip_Err<<" "<<ip_private<<endl;
+ 
+    return 0;
+}
